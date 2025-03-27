@@ -70,5 +70,88 @@ closeBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  openThanks();
+  const isValid = validateForm();
+  if (isValid) {
+    openThanks();
+  }
 });
+
+// Commit 5 — feat(js): add error handling utilities
+function addError(parentElement, errorMessage) {
+  parentElement.setAttribute("data-error", errorMessage);
+}
+
+function removeError(parentElement) {
+  if (parentElement && parentElement.getAttribute("data-error")) {
+    parentElement.removeAttribute("data-error");
+  }
+}
+
+// Commit 6 — feat(js): validate form fields with custom logic
+function validateForm() {
+  let isValid = true;
+
+  const valeurFirst = firstName.value.trim();
+  if (!/^[a-zA-ZÀ-ÿ\-\s]{2,}$/.test(valeurFirst)) {
+    addError(firstName.parentNode, "Veuillez entrer 2 caractères ou plus pour le prénom.");
+    isValid = false;
+  } else {
+    removeError(firstName.parentNode);
+  }
+
+  const valeurLast = lastName.value.trim();
+  if (!/^[a-zA-ZÀ-ÿ\-\s]{2,}$/.test(valeurLast)) {
+    addError(lastName.parentNode, "Veuillez entrer 2 caractères ou plus pour le nom.");
+    isValid = false;
+  } else {
+    removeError(lastName.parentNode);
+  }
+
+  const valeurEmail = email.value.trim();
+  if (!regexEmail.test(valeurEmail)) {
+    addError(email.parentNode, "Veuillez entrer une adresse e-mail valide.");
+    isValid = false;
+  } else {
+    removeError(email.parentNode);
+  }
+
+  const valeurBirth = birthdate.value.trim();
+  if (!valeurBirth) {
+    addError(birthdate.parentNode, "Vous devez entrer votre date de naissance.");
+    isValid = false;
+  } else {
+    removeError(birthdate.parentNode);
+  }
+
+  const valeurQuantity = quantity.value.trim();
+  if (!/^[0-9]+$/.test(valeurQuantity)) {
+    addError(quantity.parentNode, "Veuillez entrer un nombre valide.");
+    isValid = false;
+  } else {
+    removeError(quantity.parentNode);
+  }
+
+  let isRadioChecked = false;
+  for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      isRadioChecked = true;
+      break;
+    }
+  }
+  const radioGroup = radios[0].parentNode;
+  if (!isRadioChecked) {
+    addError(radioGroup, "Vous devez choisir une option.");
+    isValid = false;
+  } else {
+    removeError(radioGroup);
+  }
+
+  if (!checkbox1.checked) {
+    addError(checkbox1.parentNode, "Vous devez vérifier que vous acceptez les termes et conditions.");
+    isValid = false;
+  } else {
+    removeError(checkbox1.parentNode);
+  }
+
+  return isValid;
+}
