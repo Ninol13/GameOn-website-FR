@@ -42,7 +42,7 @@ thanksDiv.classList.add("thanks");
 
 const thanksMessageDiv = document.createElement("div");
 thanksMessageDiv.classList.add("thanksMessage");
-thanksMessageDiv.textContent = "Merci pour votre inscription!";
+thanksMessageDiv.textContent = "Merci pour votre inscription !";
 
 const closeBtn = document.createElement("button");
 closeBtn.classList.add("closeBtn");
@@ -70,13 +70,13 @@ closeBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const isValid = validateForm();
+  const isValid = validate();
   if (isValid) {
+    logFormData();
     openThanks();
   }
 });
 
-// Commit 5 — feat(js): add error handling utilities
 function addError(parentElement, errorMessage) {
   parentElement.setAttribute("data-error", errorMessage);
 }
@@ -87,8 +87,7 @@ function removeError(parentElement) {
   }
 }
 
-// Commit 6 — feat(js): validate form fields with custom logic
-function validateForm() {
+function validate() {
   let isValid = true;
 
   const valeurFirst = firstName.value.trim();
@@ -154,4 +153,18 @@ function validateForm() {
   }
 
   return isValid;
+}
+
+function logFormData() {
+  const data = {
+    prenom: firstName.value.trim(),
+    nom: lastName.value.trim(),
+    email: email.value.trim(),
+    naissance: birthdate.value.trim(),
+    quantite: quantity.value.trim(),
+    localisation: document.querySelector('input[name="location"]:checked')?.value || null,
+    conditions: checkbox1.checked,
+    abonnements: checkbox2.checked,
+  };
+  console.log("Formulaire soumis avec succès:", data);
 }
