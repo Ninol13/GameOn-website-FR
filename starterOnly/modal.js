@@ -110,19 +110,22 @@ function removeError(parentElement) {
 function validate() {
   let isValid = true;
 
+  const regexName = /^[a-zA-ZÀ-ÿ\-\s]{2,}$/;
+  const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+$/;
+  const regexQuantity = /^[0-9]+$/;
+
   const valeurFirst = firstName.value.trim();
-  if (!/^[a-zA-ZÀ-ÿ\-\s]{2,}$/.test(valeurFirst)) {
+  if (!regexName.test(valeurFirst)) {
     addError(firstName.parentNode, "Veuillez entrer 2 caractères ou plus pour le prénom.");
     isValid = false;
   } else removeError(firstName.parentNode);
 
   const valeurLast = lastName.value.trim();
-  if (!/^[a-zA-ZÀ-ÿ\-\s]{2,}$/.test(valeurLast)) {
+  if (!regexName.test(valeurLast)) {
     addError(lastName.parentNode, "Veuillez entrer 2 caractères ou plus pour le nom.");
     isValid = false;
   } else removeError(lastName.parentNode);
 
-  const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+$/;
   const valeurEmail = email.value.trim();
   if (!regexEmail.test(valeurEmail)) {
     addError(email.parentNode, "Veuillez entrer une adresse e-mail valide.");
@@ -136,7 +139,7 @@ function validate() {
   } else removeError(birthdate.parentNode);
 
   const valeurQuantity = quantity.value.trim();
-  if (!/^[0-9]+$/.test(valeurQuantity)) {
+  if (!regexQuantity.test(valeurQuantity)) {
     addError(quantity.parentNode, "Veuillez entrer un nombre valide.");
     isValid = false;
   } else removeError(quantity.parentNode);
