@@ -25,7 +25,7 @@ const checkbox2 = document.getElementById("checkbox2");
 
 // Modale
 const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelector(".modal-btn");
+const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalCross = document.querySelectorAll(".close");
 
 // ------------------------
@@ -74,8 +74,7 @@ function openThanks() {
 // ------------------------
 // 📌 ÉCOUTEURS D'ÉVÉNEMENTS
 // ------------------------
-modalBtn.addEventListener("click", launchModal);
-
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeModalCross.forEach((btn) => {
   btn.addEventListener("click", closeModal);
 });
