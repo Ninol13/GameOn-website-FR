@@ -101,7 +101,7 @@ img {
     display: block;
     margin-top: -15px;
   }
-} 
+}
 
 main {
   font-size: 130%;
@@ -564,3 +564,28 @@ footer {
   }
 }
 
+@media screen and (max-width: 600px) {
+  .content {
+    max-width: 90%;
+    margin: 10% auto;
+    padding: 10px;
+  }
+
+  .thanks {
+    max-width: 85%;
+    margin: 5% auto;
+    padding: 20px;
+    font-size: 28px;
+    height: 690px;
+  }
+
+  .thanksButton {
+    flex-direction: column;
+  }
+
+  .closeBtn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+}
