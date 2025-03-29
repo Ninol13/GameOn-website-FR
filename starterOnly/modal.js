@@ -23,13 +23,10 @@ const radios = document.querySelectorAll('input[type="radio"][name="location"]')
 const checkbox1 = document.getElementById("checkbox1");
 const checkbox2 = document.getElementById("checkbox2");
 
-// Regex
-const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+$/;
-
 // Modale
 const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const closebtn = document.querySelectorAll(".close");
+const modalBtn = document.querySelector(".modal-btn");
+const closeModalCross = document.querySelectorAll(".close");
 
 // ------------------------
 // 📦 CRÉATION DU MESSAGE DE REMERCIEMENT
@@ -41,13 +38,13 @@ const thanksMessageDiv = document.createElement("div");
 thanksMessageDiv.classList.add("thanksMessage");
 thanksMessageDiv.textContent = "Merci pour votre inscription !";
 
-const closeBtn = document.createElement("button");
-closeBtn.classList.add("closeBtn");
-closeBtn.textContent = "Fermer";
+const closeThanksButton = document.createElement("button");
+closeThanksButton.classList.add("closeBtn");
+closeThanksButton.textContent = "Fermer";
 
 const thanksButton = document.createElement("div");
 thanksButton.classList.add("thanksButton");
-thanksButton.appendChild(closeBtn);
+thanksButton.appendChild(closeThanksButton);
 
 thanksDiv.appendChild(thanksMessageDiv);
 thanksDiv.appendChild(thanksButton);
@@ -77,9 +74,13 @@ function openThanks() {
 // ------------------------
 // 📌 ÉCOUTEURS D'ÉVÉNEMENTS
 // ------------------------
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-closebtn.forEach((btn) => btn.addEventListener("click", closeModal));
-closeBtn.addEventListener("click", closeModal);
+modalBtn.addEventListener("click", launchModal);
+
+closeModalCross.forEach((btn) => {
+  btn.addEventListener("click", closeModal);
+});
+
+closeThanksButton.addEventListener("click", closeModal);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -121,6 +122,7 @@ function validate() {
     isValid = false;
   } else removeError(lastName.parentNode);
 
+  const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+$/;
   const valeurEmail = email.value.trim();
   if (!regexEmail.test(valeurEmail)) {
     addError(email.parentNode, "Veuillez entrer une adresse e-mail valide.");
